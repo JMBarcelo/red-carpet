@@ -1,0 +1,17 @@
+<h1>RED CARPET</h1>
+
+<div class="container">
+  <div class="row" *ngIf="userSessionService.user">
+
+    <h2>Welcome {{userSessionService.user.username}}</h2>
+    <img src="{{userSessionService.user.image}}" alt="{{userSessionService.user.username}} photo">
+    <button (click)="logOut()" type="submit" class="btn btn-primary btn-lg btn-block">Log Out</button>
+
+  </div>
+  <div *ngIf="!userSessionService.user" class="col-md-12">
+
+    <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
+    <a [routerLink]="['/signup']" class="btn btn-primary">Signup</a>
+
+  </div>
+</div>
