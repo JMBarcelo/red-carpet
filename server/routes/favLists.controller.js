@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const FavoutitesList = require("../../models/FavouritesList.model");
+const FavoutitesList = require("../../models/FavouritesList");
 const loggedIn = require("../../utils/isAuth");
 
 router.get("/", (req, res, next) => {

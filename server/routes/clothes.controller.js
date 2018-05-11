@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const Garment = require("../../models/Garment.model");
-const loggedIn = require("../../utils/isAuth");
+const Garment = require("../models/Garment");
+const loggedIn = require("../utils/isAuth");
 
 router.get("/", (req, res, next) => {
   Garment.find({})

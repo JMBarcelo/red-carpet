@@ -31,7 +31,7 @@ const debug = require("debug")(
 
 const app = express();
 
-var whitelist = ['http://localhost:4200'];
+var whitelist = ["http://localhost:4200"];
 var corsOptions = {
   origin: function(origin, callback) {
     var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
@@ -41,19 +41,22 @@ var corsOptions = {
 };
 app.use(cors(corsOptions));
 
+app.use(logger("dev"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(
   session({
     secret: "forum-app",
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      ttl: 24 * 60 * 60
+    })
   })
 );
-
-configure(passport);
-
-app.use(passport.initialize());
-app.use(passport.session());
+require("./passport")(app);
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -63,10 +66,13 @@ app.locals.title = "Express - Generated with IronGenerator";
 
 // Middleware Setup
 
-app.use(logger("dev"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+
+
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  //console.log(res.locals.user);
+  next();
+});
 
 // Express View engine setup
 
@@ -83,12 +89,12 @@ app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
-const index = require("./routes/index");
+const index = require("./routes/index.controller");
 app.use("/", index);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const err = new Error('Not Found');
+  const err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
@@ -97,11 +103,11 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render("error");
 });
 
 module.exports = app;

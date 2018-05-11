@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserSessionService } from '../services/user-session.service';
 import { Router } from '@angular/router';
+import {Observable} from 'rxjs/Observable';
+import { ClothesService } from '../services/clothes.service';
 
 @Component({
   selector: 'app-user-view',
@@ -9,11 +11,15 @@ import { Router } from '@angular/router';
 })
 export class UserViewComponent implements OnInit {
 
-  threads: Array<any>;
+  user: any;
+  clothes$:Observable<any>;
+  clothes:Array<any> = [];
 
-  constructor(public userSessionService: UserSessionService, public router: Router) { }
+  constructor(public clothesService: ClothesService, public userSessionService: UserSessionService, public router: Router) { }
 
   ngOnInit() {
+    this.clothes$ = this.clothesService.getList();
+    this.clothesService.getList().subscribe(clothes => this.clothes = clothes);
   }
 
   logOut(){

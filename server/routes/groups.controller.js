@@ -1,7 +1,7 @@
 const express  = require('express');
 const router   = express.Router();
-const Group   = require('../../models/Group.model');
-const loggedIn = require('../../utils/isAuth');
+const Group   = require('../models/Group');
+const loggedIn = require('../utils/isAuth');
 
 router.get('/', (req, res, next) => {
   Group

@@ -3,10 +3,10 @@ const bcrypt = require("bcrypt");
 
 mongoose.connect("mongodb://localhost/red-carpet");
 
-const FavouritesList = require("../models/FavouritesList.model.js");
-const User = require("../models/User.model.js");
-const Group = require("../models/Group.model.js");
-const Garment = require("../models/Garment.model.js");
+const FavouritesList = require("../models/FavouritesList.js");
+const User = require("../models/User.js");
+const Group = require("../models/Group.js");
+const Garment = require("../models/Garment.js");
 
 const users = [
   {

@@ -25,7 +25,7 @@ export class UserSessionService {
 
   signUp(user) {
     return this.http
-      .post(`${this.BASE_URL}/api/signup`, user, this.options)
+      .post(`${this.BASE_URL}/signup`, user, this.options)
       .map(res => res.json())
       .map(user => this.handleUser(user))
       .catch(this.handleError);
@@ -33,7 +33,7 @@ export class UserSessionService {
 
   logIn(user) {
     return this.http
-      .post(`${this.BASE_URL}/api/login`, user, this.options)
+      .post(`${this.BASE_URL}/login`, user, this.options)
       .map(res => res.json())
       .map(user => this.handleUser(user))
       .catch(this.handleError);
@@ -41,7 +41,7 @@ export class UserSessionService {
 
   logOut() {
     return this.http
-      .post(`${this.BASE_URL}/api/logout`, {}, this.options)
+      .post(`${this.BASE_URL}/logout`, {}, this.options)
       .map(res => res.json())
       .map(() => this.handleUser())
       .catch(this.handleError);
@@ -49,7 +49,7 @@ export class UserSessionService {
 
   isLoggedIn() {
     return this.http
-      .post(`${this.BASE_URL}/api/loggedin`, {}, this.options)
+      .post(`${this.BASE_URL}/loggedin`, {}, this.options)
       .map(res => res.json())
       .map(user => this.handleUser(user))
       .catch(this.handleError);

@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 mongoose.connect("mongodb://localhost/red-carpet");
 
-const Notification = require("../models/Notification.model.js");
+const Notification = require("../models/Notification.js");
 
 const notifications = [
   {

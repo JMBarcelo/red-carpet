@@ -18,6 +18,12 @@ import { LogInComponent } from './log-in/log-in.component';
 import { UserViewComponent } from './user-view/user-view.component';
 
 import { UserSessionService } from './services/user-session.service';
+import { ClothesService } from './services/clothes.service';
+import { AddGarmentComponent } from './add-garment/add-garment.component';
+import { NewFavslistComponent } from './new-favslist/new-favslist.component';
+import { NewGroupComponent } from './new-group/new-group.component';
+import { FavslistsService } from './services/favslists.service';
+import { GroupsService } from './services/groups.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +36,10 @@ import { UserSessionService } from './services/user-session.service';
     SingleFavslistComponent,
     SignUpComponent,
     LogInComponent,
-    UserViewComponent
+    UserViewComponent,
+    AddGarmentComponent,
+    NewFavslistComponent,
+    NewGroupComponent
 ],
   imports: [
     BrowserModule,
@@ -38,7 +47,7 @@ import { UserSessionService } from './services/user-session.service';
     HttpModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [UserSessionService],
+  providers: [UserSessionService, ClothesService, FavslistsService, GroupsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
